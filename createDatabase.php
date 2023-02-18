@@ -1,9 +1,5 @@
 <?php
     require_once("connection.php");
-    //$sql= "CREATE DATABASE IF NOT EXISTS HyamdaDatabase";
-    //$con->mysqli_query($sql); 
-    //make sure our recently created database is the active one
-    //mysqli_select_db('HyamdaDatabase', $db); 
     
     $sql = "CREATE TABLE IF NOT EXISTS tbltesWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
                                                         word VARCHAR(50) NOT NULL,
@@ -17,7 +13,6 @@
                                                         )
                                                         ENGINE=MyISAM";
                                                         
-    //mysql_query($sql, $db) or die(mysql_error($db));
-
-    $con->mysqli_query($sql); 
+   
+    $conn->mysqli($sql); 
 ?>
