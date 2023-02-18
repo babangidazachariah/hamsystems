@@ -1,11 +1,12 @@
 <?php
-    $db = mysql_connect("localhost","root") or die ('Unable to connect. Check your connection parameters or '.mysql_error($db));
+mysql://b35bfc72e5de73:d0de149c@us-cdbr-east-06.cleardb.net/heroku_b1434386a052247?reconnect=true
+    $con = mysqli_connect("heroku_b1434386a052247","b35bfc72e5de73","d0de149c" ); //or die ('Unable to connect. Check your connection parameters or '.mysql_error($db));
     $sql= "CREATE DATABASE IF NOT EXISTS HyamdaDatabase";
-    mysql_query($sql, $db) or die(mysql_error($db));
+    mysqli_query($sql, $con); // or die(mysql_error($con));
     //make sure our recently created database is the active one
-    mysql_select_db('HyamdaDatabase', $db) or die(mysql_error($db));
+    mysqli_select_db('HyamdaDatabase', $db); //or die(mysql_error($db));
     
-    $sql = "CREATE TABLE IF NOT EXISTS tblWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
+    $sql = "CREATE TABLE IF NOT EXISTS tbltesWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
                                                         word VARCHAR(50) NOT NULL,
                                                         morphology VARCHAR(50) NOT NULL,
                                                         partOfSpeech VARCHAR(20) NOT NULL,
