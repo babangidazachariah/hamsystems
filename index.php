@@ -1,3 +1,6 @@
+<?php
+	require_once('createDatabase.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
