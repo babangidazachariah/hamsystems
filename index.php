@@ -13,7 +13,7 @@
 <body>
 
     <?php
-        include_once("header.php");
+        require_once("header.php");
     ?>
     <div class="row">
         <div class="col-3 menu">
