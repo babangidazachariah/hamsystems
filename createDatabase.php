@@ -17,5 +17,7 @@
                                                         )
                                                         ENGINE=MyISAM";
                                                         
-    mysql_query($sql, $db) or die(mysql_error($db));
+    //mysql_query($sql, $db) or die(mysql_error($db));
+
+    $con->mysqli_query($sql); 
 ?>
