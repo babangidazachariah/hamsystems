@@ -3,14 +3,14 @@
     
     $sql = "CREATE TABLE IF NOT EXISTS tblWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
                                                         word VARCHAR(50) NOT NULL,
-                                                        morphology VARCHAR(10) NOT NULL,
+                                                        morphology VARCHAR(50) NOT NULL,
                                                         partOfSpeech VARCHAR(20) NOT NULL,
                                                         meaning VARCHAR(100) NOT NULL,
-														explanations VARCHAR(400),
+							explanations VARCHAR(400),
                                                         exampleUsage VARCHAR(400),
-														audio VARCHAR(50),
+							audio VARCHAR(50),
                                                         video VARCHAR(50),
-														image VARCHAR(50),
+							image VARCHAR(50),
                                                         PRIMARY KEY (wordID)
                                                         )
                                                         ENGINE=MyISAM";
@@ -20,10 +20,10 @@
 	
 	
 	$sql = "CREATE TABLE IF NOT EXISTS tblUsers (userID INTEGER NOT NULL AUTO_INCREMENT,														
-                                                        userEmail VARCHAR(20) NOT NULL,
-                                                        userFName VARCHAR(20) NOT NULL,
-                                                        userMName VARCHAR(20) ,
-                                                        userLName VARCHAR(20) NOT NULL,
+                                                        userEmail VARCHAR(50) NOT NULL,
+                                                        userFName VARCHAR(30) NOT NULL,
+                                                        userMName VARCHAR(30) ,
+                                                        userLName VARCHAR(30) NOT NULL,
                                                         
                                                         PRIMARY KEY (userID)
                                                         )
@@ -32,9 +32,9 @@
    
     $conn->query($sql); 
 	$sql = "CREATE TABLE IF NOT EXISTS tblUsersLogin (userLoginID INTEGER NOT NULL AUTO_INCREMENT,														
-                                                        userName VARCHAR(20) NOT NULL,
-                                                        userEmail VARCHAR(20) NOT NULL,
-                                                        userPWord VARCHAR(20),
+                                                        userName VARCHAR(50) NOT NULL,
+                                                        userEmail VARCHAR(50) NOT NULL,
+                                                        userPWord VARCHAR(100),
                                                   
                                                         PRIMARY KEY (userLoginID)
                                                         )
@@ -44,11 +44,11 @@
     $conn->query($sql); 
 	
 	$sql = "CREATE TABLE IF NOT EXISTS tblAdmin (adminID INTEGER NOT NULL AUTO_INCREMENT,														
-                                                        userName VARCHAR(20) NOT NULL,
-                                                        userFName VARCHAR(20) NOT NULL,
-                                                        userMName VARCHAR(20) ,
-                                                        userLName VARCHAR(20) NOT NULL,
-                                                        userEmail VARCHAR(30) NOT NULL,
+                                                        userName VARCHAR(30) NOT NULL,
+                                                        userFName VARCHAR(30) NOT NULL,
+                                                        userMName VARCHAR(30) ,
+                                                        userLName VARCHAR(30) NOT NULL,
+                                                        userEmail VARCHAR(50) NOT NULL,
                                                         userPWord VARCHAR(100),
                                                         
                                                         PRIMARY KEY (adminID)
