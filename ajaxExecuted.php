@@ -2,6 +2,7 @@
 SESSION_START();
 	require_once("connection.php");
 	
+	
 	function ReportPost($postID, $reporter, $mysqli){
 		
 		/*
