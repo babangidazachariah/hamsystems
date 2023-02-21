@@ -10,7 +10,6 @@ SESSION_START();
 			require_once("connection.php");
 			//require_once("encryptDecrypt.php");
 			
-			
 			$vidtype = $_FILES['vidFile']['type'];
 			
 			
