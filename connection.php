@@ -1,5 +1,5 @@
 <?php
-    //require_once ("connection.php");
+	//require_once ("connection.php");
     $username = "b35bfc72e5de73";
     $pass = "d0de149c"; 
     $host = "us-cdbr-east-06.cleardb.net"; 

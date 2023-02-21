@@ -15,17 +15,52 @@
 .col-9 {width: 75%; }
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%; justify-content:center; align-content:center;}
+
+
 /* width:auto; height: auto; display: block; margin-left: auto;margin-right: auto; */
 .mainContainer{
     display: flex;
     justify-content: center;
+	margin-top: 130px;
+	margin-bottom: 100px;
+	text-align : center;
+	/*align-content:center;*/
+	z-index:-5000;
 }
+.userProfile{
+    display: flex;
+    justify-content: center;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	text-align : center;
+	display:block;
+	/*align-content:center;*/
+	z-index:-5000;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   [class*="col-"] {
     width: 100%;
   }
+  [class="post"]{
+	margin-top: 0px;
+  }
+  [class="mainContainer"]{
+	margin-top: 10px;
+  }
+  [class="menu"]{
+	max-width: auto;
+	margin-top:auto;
+	position:static;
+  }
+  /*
+  [class="menuItem"]{
+	max-width: 100%;
+	position: fixed;
+  }
+  */
 }
 
 
@@ -40,45 +75,59 @@
   content: "";
   clear: both;
   display: table;
+  
 }
 
 html {
-  font-family: "Lucida Sans", sans-serif;
+  font-family: "Lucida Sans" "sans-serif";
 }
 body{
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+	/*overflow: scroll;*/
 }
 .header {
   background-color: green;
   color: #ffffff;
-  padding-left: 15px;
-  padding-right: 15px;
   align-content: center;
   align-content: center;
   margin: auto;
-  position: relative;
-  display: block;
+  top:0;
+  height:10%;
+  width:97%;
+  z-index: 20;
+  position: fixed;
+  
 }
+
 
 .footer {
   background-color: green;
   color: #ffffff;
   padding-left: 15px;
+  margin-right: 15px;
   margin-top: auto;
+  bottom: 0;
+  width:97%;
+  position: fixed;
   
   align-content: center;
   text-align: center;
+  z-index:500;
 }
 
-.menu ul {
+
+.menu  {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  /*margin-top: 130px;*/
+  /*position: fixed;*/
+  width:auto;
 }
 
-.menu li  {
+.menuItem  {
   padding: 8px;
   margin-bottom: 7px;
   background-color : maroon;
@@ -93,17 +142,20 @@ body{
 }
 .menu li:hover {
   background-color: yellow;
+  cursor: pointer;
 }
 
 .responsive {
-    width: auto;
-    height: auto;
+    
+    height: 100%;
+	width:60%;
+	max-width:100%;
     margin-left: auto;
     margin-right: auto;
     display: block;
   }
 
-  input[type=text], select {
+  input[type=text], [type=email],[type=textarea], [type=password], select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -124,3 +176,97 @@ body{
     cursor: pointer;
   }
   
+ 
+.formDive {
+	border-radius: 5px;
+	background-color: #D3D3D3;
+	padding: 20px;
+	width:50%;
+
+}
+
+.frmPostFrum {
+	border-radius: 5px;
+	background-color: #D3D3D3;
+	padding: 20px;
+	width:100%;
+	margin:bottom:10px;
+}
+
+.post{
+    display: block;
+    justify-content: center;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	text-align : center;
+	
+	
+}
+
+
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: green;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 10.2%; /* Position the navbar at the top of the page */
+  width: 97%; /* Full width */
+  z-index: 20;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  background: #E6DA00;
+  color: black;
+}
+
+
+
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  margin-top:5px;
+}

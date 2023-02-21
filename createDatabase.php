@@ -1,18 +1,122 @@
 <?php
-    require_once("connection.php");
+	 require_once("connection.php");
     
-    $sql = "CREATE TABLE IF NOT EXISTS tbltesWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
+    $sql = "CREATE TABLE IF NOT EXISTS tblWords (wordID INTEGER NOT NULL AUTO_INCREMENT,														
                                                         word VARCHAR(50) NOT NULL,
-                                                        morphology VARCHAR(50) NOT NULL,
+                                                        morphology VARCHAR(10) NOT NULL,
                                                         partOfSpeech VARCHAR(20) NOT NULL,
-                                                        singularPlural INTEGER NOT NULL,
                                                         meaning VARCHAR(100) NOT NULL,
-                                                        exampleUsage VARCHAR(100),
-                                                        explanations VARCHAR(100),
+														explanations VARCHAR(400),
+                                                        exampleUsage VARCHAR(400),
+														audio VARCHAR(50),
+                                                        video VARCHAR(50),
+														image VARCHAR(50),
                                                         PRIMARY KEY (wordID)
                                                         )
                                                         ENGINE=MyISAM";
                                                         
    
-    $conn->mysqli($sql); 
+    $conn->query($sql);
+	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblUsers (userID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        userEmail VARCHAR(20) NOT NULL,
+                                                        userFName VARCHAR(20) NOT NULL,
+                                                        userMName VARCHAR(20) ,
+                                                        userLName VARCHAR(20) NOT NULL,
+                                                        
+                                                        PRIMARY KEY (userID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	$sql = "CREATE TABLE IF NOT EXISTS tblUsersLogin (userLoginID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        userName VARCHAR(20) NOT NULL,
+                                                        userEmail VARCHAR(20) NOT NULL,
+                                                        userPWord VARCHAR(20),
+                                                  
+                                                        PRIMARY KEY (userLoginID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblAdmin (adminID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        userName VARCHAR(20) NOT NULL,
+                                                        userFName VARCHAR(20) NOT NULL,
+                                                        userMName VARCHAR(20) ,
+                                                        userLName VARCHAR(20) NOT NULL,
+                                                        userEmail VARCHAR(30) NOT NULL,
+                                                        userPWord VARCHAR(100),
+                                                        
+                                                        PRIMARY KEY (adminID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblPost (postID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        postContent VARCHAR(500) NOT NULL,
+                                                        postAuthor VARCHAR(20) NOT NULL,
+                                                        postDateTime DATETIME NOT NULL,
+                                                        postStatus INTEGER NOT NULL,
+                                                        postVideo VARCHAR(70),
+														postImage VARCHAR(70),
+														
+                                                        PRIMARY KEY (postID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblComments (commentID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        postID INTEGER NOT NULL,
+                                                        comment VARCHAR(500) NOT NULL,
+                                                        commentAuthor VARCHAR(20) ,
+                                                        commentDate DATETIME NOT NULL,
+                                                        commentStatus INTEGER NOT NULL,
+                                                        
+                                                        PRIMARY KEY (commentID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblReportMembers (reportID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        reportedUsername VARCHAR(20) NOT NULL,
+                                                        reporterComment VARCHAR(500) NOT NULL,
+                                                        reporterUsername VARCHAR(20) ,
+                                                        reportDateTime DATETIME NOT NULL,
+                                                        
+                                                        PRIMARY KEY (reportID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	
+	$sql = "CREATE TABLE IF NOT EXISTS tblReportPost (reportID INTEGER NOT NULL AUTO_INCREMENT,														
+                                                        postID INTEGER NOT NULL,
+                                                        reporterComment VARCHAR(500) ,
+                                                        reporterUsername VARCHAR(20) NOT NULL,
+                                                        reportDateTime DATETIME NOT NULL,
+                                                        
+                                                        PRIMARY KEY (reportID)
+                                                        )
+                                                        ENGINE=MyISAM";
+                                                        
+   
+    $conn->query($sql); 
+	
+	
 ?>

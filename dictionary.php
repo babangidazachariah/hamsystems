@@ -13,13 +13,8 @@
         include_once("header.php");
     ?>
     <div class="row">
-        <div class="col-3 menu">
-        <ul>
-        <li>The Flight</li>
-        <li>The City</li>
-        <li>The Island</li>
-        <li>The Food</li>
-        </ul>
+        <div class="col-3 ">
+        
         </div>
 
         <div class="col-6">
