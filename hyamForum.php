@@ -4,7 +4,6 @@ SESSION_START();
 	if((!empty($_SESSION["userName"]) && (!empty($_SESSION["userEmail"])))){ //User has successfully login to system.
 		require_once("connection.php");
 		
-	
 		if(isset($_POST["btnSubmit"])){
 			
 			require_once("connection.php");
