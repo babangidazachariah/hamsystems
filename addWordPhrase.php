@@ -74,7 +74,6 @@
 				$error = "Word Addition Error. Try Again!!!";
 			}
 				
-			
 		}
 	}
 	
