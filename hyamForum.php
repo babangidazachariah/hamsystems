@@ -10,6 +10,7 @@ SESSION_START();
 			require_once("connection.php");
 			//require_once("encryptDecrypt.php");
 			
+			
 			$vidtype = $_FILES['vidFile']['type'];
 			
 			
@@ -142,7 +143,7 @@ SESSION_START();
 							}
 							return $retval;
 						}
-						$sql = "SELECT * FROM tblPost ORDER BY postDateTime LIMIT $offset, 10";
+						$sql = "SELECT t.* FROM tblpost as t WHERE t.postID NOT IN (SELECT tblreportpost.postID FROM tblreportpost) ORDER BY postDateTime LIMIT $offset, 10";
 						$result = $conn->query($sql);
 						if($result->num_rows > 0){
 							
@@ -155,7 +156,7 @@ SESSION_START();
 										<div class="content">
 										  <p>'.$post.'</p>';
 								if(!empty($row['postImage'])){
-									$strPost .='<img src="'.$row['postImage'].'" alt="PostPicture" />';
+									$strPost .='<img src="'.$row['postImage'].'" width="300px" height="200px" alt="PostPicture" />';
 								}
 								if(!empty($row['postVideo'])){
 									$strPost .= '<video id="vid'.$row['postID'].'" style="margin-left:2px;" width="300px" height="200px" controls>
