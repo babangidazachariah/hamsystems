@@ -16,11 +16,11 @@
 	<div class="row">
 		<div class="col-12">
 			<div class="navbar">
-				<a href='index.php' class="menuText">Dictionary</a>
-                <a href='register.php' class="menuText">Register</a>
-                <a href='login.php' class="menuText">Login</a>
+				<a href='adminHome.php' class="menuText">Dictionary</a>
+                <a href='addAdmin.php' class="menuText">New Admin</a>
+                <a href='addWordPhrase.php' class="menuText">New Word</a>
                 <a href='hyamforum.php' class="menuText">Hyam Forum</a>
-				<!--<a href='adminLogin.php' class="menuText">Admin Login</a>-->
+			  
 			</div>
 		</div>
 	</div>

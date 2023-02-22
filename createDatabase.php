@@ -44,12 +44,12 @@
     $conn->query($sql); 
 	
 	$sql = "CREATE TABLE IF NOT EXISTS tblAdmin (adminID INTEGER NOT NULL AUTO_INCREMENT,														
-                                                        userName VARCHAR(50) NOT NULL,
-                                                        userFName VARCHAR(50) NOT NULL,
-                                                        userMName VARCHAR(50) ,
-                                                        userLName VARCHAR(50) NOT NULL,
-                                                        userEmail VARCHAR(50) NOT NULL,
-                                                        userPWord VARCHAR(100),
+                                                        adminName VARCHAR(50) NOT NULL,
+                                                        adminFName VARCHAR(50) NOT NULL,
+                                                        adminMName VARCHAR(50) ,
+                                                        adminLName VARCHAR(50) NOT NULL,
+                                                        adminEmail VARCHAR(50) NOT NULL,
+                                                        adminPWord VARCHAR(100),
                                                         
                                                         PRIMARY KEY (adminID)
                                                         )
