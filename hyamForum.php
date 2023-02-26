@@ -1,7 +1,9 @@
 <?php
 SESSION_START();
 	$error = "";
-	if((!empty($_SESSION["userName"]) && (!empty($_SESSION["userEmail"])))){ //User has successfully login to system.
+	
+	
+	if((!empty($_SESSION["userName"]) && (!empty($_SESSION["userEmail"]))) || (!empty($_SESSION["adminName"]) && (!empty($_SESSION["adminEmail"])))){ //User has successfully login to system.
 		require_once("connection.php");
 		
 	
