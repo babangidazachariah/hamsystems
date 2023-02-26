@@ -1,83 +1,86 @@
 <?php
+SESSION_START();
 	$error = "";
 	
-	
-	if(isset($_POST["btnSubmit"])){
-		
-		require_once("connection.php");
-		//require_once("encryptDecrypt.php");
-		
-		
-		$vidtype = $_FILES['vidFile']['type'];
-		
-		/*
-		$vidsize = $_FILES['vidFile']['size'];
-		$vidname = $_FILES['vidFile']['name'];
-		$imgsize = $_FILES['imgFile']['size'];
-		$imgname = $_FILES['imgFile']['name'];pronounce
-		*/
-		$imgtype = $_FILES['imgFile']['type'];
-		
-		$audtype = $_FILES['audFile']['type'];
-		
-		$vidDir = "wordVideos/";
-		$imgDir = "wordImages/";
-		$audDir = "wordAudios/";
-		
-		if(!($vidtype == "video/mp4")){
-			$error .= "Only mp4 Videos Allowed";
-		}
-		
-		if(!($imgtype == "image/png")){
-			$error .= "Only png images Allowed";
-		}
-		
-		if(!($audtype == "audio/mpeg")){
-			$error .= "Only .mp3 Audio Allowed";
-		}
-		
-		//$imgType = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION));
-		//$vidType = strtolower(pathinfo($vidFile,PATHINFO_EXTENSION));
-		if(empty($error)){
+	if(!empty($_SESSION["adminName"]) && (!empty($_SESSION["adminEmail"]))){//Admin User
+		if(isset($_POST["btnSubmit"])){
 			
-			$txtWord = $conn->real_escape_string(trim($_POST['txtWord']));
-			$txtMorpheme = $conn->real_escape_string(trim($_POST['txtMorpheme']));
-			$txtPartSpeech = $conn->real_escape_string($_POST['txtPartSpeech']);
-			$txtMeaning = $conn->real_escape_string($_POST['txtMeaning']);
+			require_once("connection.php");
+			//require_once("encryptDecrypt.php");
 			
 			
-			$txtExplain = $conn->real_escape_string($_POST['txtExplain']);
-			$txtExample = $conn->real_escape_string($_POST['txtExample']);
+			$vidtype = $_FILES['vidFile']['type'];
 			
+			/*
+			$vidsize = $_FILES['vidFile']['size'];
+			$vidname = $_FILES['vidFile']['name'];
+			$imgsize = $_FILES['imgFile']['size'];
+			$imgname = $_FILES['imgFile']['name'];pronounce
+			*/
+			$imgtype = $_FILES['imgFile']['type'];
 			
-									
-			try{
-				$sql = "INSERT INTO tblWords (word, morphology, partOfSpeech, meaning, explanations, exampleUsage ) 
-										VALUES ('$txtWord','$txtMorpheme','$txtPartSpeech', '$txtMeaning','$txtExplain', '$txtExample')";
-				
-				if ($conn->query($sql) == TRUE) {
-					$wordID = $conn->insert_id;
-					//move media files to locations and update database
-					$audFile = $audDir.$txtWord.$wordID.".mp3";
-					$vidFile = $vidDir.$txtWord.$wordID.".mp4";
-					$imgFile = $imgDir.$txtWord.$wordID.".png";
-					move_uploaded_file($_FILES["vidFile"]["tmp_name"], $vidFile);
-					move_uploaded_file($_FILES["imgFile"]["tmp_name"], $imgFile);
-					move_uploaded_file($_FILES["audFile"]["tmp_name"], $audFile);
-					
-					$sql = "UPDATE tblWords SET  audio='$audFile', video='$vidFile', image='$imgFile' WHERE wordID = $wordID";
-					$conn->query($sql);
-					
-				}
-			}catch(Excepyion $e){
-				
-				$error = "Word Addition Error. Try Again!!!";
+			$audtype = $_FILES['audFile']['type'];
+			
+			$vidDir = "wordVideos/";
+			$imgDir = "wordImages/";
+			$audDir = "wordAudios/";
+			
+			if(!($vidtype == "video/mp4")){
+				$error .= "Only mp4 Videos Allowed";
 			}
-				
 			
+			if(!($imgtype == "image/png")){
+				$error .= "Only png images Allowed";
+			}
+			
+			if(!($audtype == "audio/mpeg")){
+				$error .= "Only .mp3 Audio Allowed";
+			}
+			
+			//$imgType = strtolower(pathinfo($imgFile,PATHINFO_EXTENSION));
+			//$vidType = strtolower(pathinfo($vidFile,PATHINFO_EXTENSION));
+			if(empty($error)){
+				
+				$txtWord = $conn->real_escape_string(trim($_POST['txtWord']));
+				$txtMorpheme = $conn->real_escape_string(trim($_POST['txtMorpheme']));
+				$txtPartSpeech = $conn->real_escape_string($_POST['txtPartSpeech']);
+				$txtMeaning = $conn->real_escape_string($_POST['txtMeaning']);
+				
+				
+				$txtExplain = $conn->real_escape_string($_POST['txtExplain']);
+				$txtExample = $conn->real_escape_string($_POST['txtExample']);
+				
+				
+										
+				try{
+					$sql = "INSERT INTO tblWords (word, morphology, partOfSpeech, meaning, explanations, exampleUsage ) 
+											VALUES ('$txtWord','$txtMorpheme','$txtPartSpeech', '$txtMeaning','$txtExplain', '$txtExample')";
+					
+					if ($conn->query($sql) == TRUE) {
+						$wordID = $conn->insert_id;
+						//move media files to locations and update database
+						$audFile = $audDir.$txtWord.$wordID.".mp3";
+						$vidFile = $vidDir.$txtWord.$wordID.".mp4";
+						$imgFile = $imgDir.$txtWord.$wordID.".png";
+						move_uploaded_file($_FILES["vidFile"]["tmp_name"], $vidFile);
+						move_uploaded_file($_FILES["imgFile"]["tmp_name"], $imgFile);
+						move_uploaded_file($_FILES["audFile"]["tmp_name"], $audFile);
+						
+						$sql = "UPDATE tblWords SET  audio='$audFile', video='$vidFile', image='$imgFile' WHERE wordID = $wordID";
+						$conn->query($sql);
+						$error = "Word Added Successfully!!!";
+					}
+				}catch(Excepyion $e){
+					
+					$error = "Word Addition Error. Try Again!!!";
+				}
+					
+				
+			}
 		}
+	}else{
+		header("location:adminLogin.php");
 	}
-	
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,7 +108,7 @@
                     <div class="row">
 					
                         <h1>Add Word to Dictionary </h1>
-						<h3 color='red'><?php print($error); ?>
+						<h3 color='red'><?php print($error);  ?></h3>
                         <input type = "text" id="txtWord" name="txtWord" placeholder="Word Here" required>
 						<input type = "text" id="txtMorpheme" name="txtMorpheme" placeholder="Transcript Here" >
 						<input type = "text" id="txtPartSpeech" name="txtPartSpeech" placeholder="Part of Speech Here">

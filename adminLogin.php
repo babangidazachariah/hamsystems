@@ -15,7 +15,7 @@ SESSION_START();
 			
 			while($row = $result->fetch_assoc()){
 				if($pass == Decrypt($row['adminPWord'])){
-					print("Here");
+					//print("Here");
 					$_SESSION['adminName'] = $row['adminName'];
 					$_SESSION['adminEmail'] = $row['adminEmail'];
 					header("location:adminHome.php");

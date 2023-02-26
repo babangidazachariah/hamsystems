@@ -1,15 +1,24 @@
 <?php
 SESSION_START();
 	$error = "";
-	
+	$user = "";
+	$email = "";
+	require_once("connection.php");
 	
 	if((!empty($_SESSION["userName"]) && (!empty($_SESSION["userEmail"]))) || (!empty($_SESSION["adminName"]) && (!empty($_SESSION["adminEmail"])))){ //User has successfully login to system.
-		require_once("connection.php");
 		
-	
+		if(!empty($_SESSION["adminName"])){
+			$user = $_SESSION['adminName'];
+			$email = $_SESSION['adminEmail'];
+		}
+		if(!empty($_SESSION["userName"])){
+			$email = $_SESSION['userEmail'];
+			$user = $_SESSION['userName'];
+		}
+		
 		if(isset($_POST["btnSubmit"])){
 			
-			require_once("connection.php");
+			
 			//require_once("encryptDecrypt.php");
 			
 			
@@ -34,19 +43,19 @@ SESSION_START();
 			if(empty($error)){
 				
 				$txtForum = $conn->real_escape_string(trim($_POST['txtForum']));
-				$author = $_SESSION['userName'];
+				
 				$dateTime = Date('Y-m-d-H:i:s');
 				
 				try{
 					$sql = "INSERT INTO tblPost (postContent, postAuthor, postDateTime, postStatus) 
-											VALUES ('$txtForum','$author','$dateTime', 1)";
+											VALUES ('$txtForum','$user','$dateTime', 1)";
 					
 					if ($conn->query($sql) == TRUE) {
 						$postID = $conn->insert_id;
 						//move media files to locations and update database
 						
-						$vidFile = $vidDir."postImage".$postID.".mp4";
-						$imgFile = $imgDir."postVideo".$postID.".png";
+						$vidFile = $vidDir."postVideo".$postID.".mp4";
+						$imgFile = $imgDir."postImage".$postID.".png";
 						move_uploaded_file($_FILES["vidFile"]["tmp_name"], $vidFile);
 						move_uploaded_file($_FILES["imgFile"]["tmp_name"], $imgFile);
 						
@@ -64,7 +73,7 @@ SESSION_START();
 			}
 		}
 		
-		
+	
 		
 	}else{//User is yet to successfully login to system
 		header("location:login.php");
@@ -89,8 +98,31 @@ SESSION_START();
         <div class="col-2">
 			<div class="userProfile">
 				<img src="images/genericDp.png" alt="User Photo" />
-				<h3> Babangida Zachariah </h3>
-				<h5>logged on as: babangida</h5>
+				<?php
+					$sql = "";
+					if(!(empty($_SESSION['userEmail']))){
+						$sql = "SELECT u.userFName, u.userLName, l.userName FROM tblUsers as u, tblUserLogin as l WHERE u.userEmail = '$email' AND l.userName = '$email' ";
+						$result = $conn->query($sql);
+						if($result->num_rows > 0){
+							
+							while($row = $result->fetch_assoc()){
+								print("<h3>". $row['userFName']." ". $row['userLName']."</h3><h5>@".$row['userName']."</h5>");
+							}
+						}
+					}elseif(!(empty($_SESSION['adminEmail']))){
+						$sql = "SELECT * FROM tblAdmin WHERE adminEmail = '$email'";
+						$result = $conn->query($sql);
+						if($result->num_rows > 0){
+							
+							while($row = $result->fetch_assoc()){
+								print("<h3>". $row['adminFName']." ". $row['adminLName']."</h3><h5>@".$row['adminName']."</h5>");
+								
+							}
+						}
+					}
+					
+				?>
+				
 			</div>
 		</div>
 		
@@ -101,7 +133,7 @@ SESSION_START();
 					<div class="row">
                         
 						<form name="frmPostFrum" id="frmPostFrum" method="POST" action="hyamForum.php" class="frmPostFrum" enctype="multipart/form-data">
-							<h3>@<?php print($_SESSION['userName']); ?>:</h3>
+							<h3>@<?php print($user); ?>:</h3>
 							<input type="textarea" name ="txtForum" id ="txtForum" rows="4" placeholder="Post a New Learning  Content"></textarea>
 							
 							Image Illustration (.png)<input type = "file" id="imgFile" name="imgFile" placeholder="Upload Image Illustration Here" ><br />
@@ -230,7 +262,7 @@ SESSION_START();
 		//Report Post
 		function ReportPost(postID, btn){
 			//Function to report a post
-			
+			alert("Report: " + postID);
 			var btnRpt = document.getElementById(btn);
 			
 			var fncUrl ="ajaxExecuted.php?func=ReportPost&pID="+ postID;

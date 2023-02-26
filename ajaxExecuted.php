@@ -26,10 +26,14 @@ SESSION_START();
 	}
 	
 	
-	if(!(empty($_SESSION['userName']))){
-		$rpter = $_SESSION['userName'];
-		
-		
+	if((!(empty($_SESSION['userName']))) || (!(empty($_SESSION['adminName'])))){
+		$rpter =  "";
+		if(!(empty($_SESSION['userName']))) {
+			$rpter = $_SESSION['userName'];
+		}
+		if(!(empty($_SESSION['adminName']))){
+			$rpter = $_SESSION['adminName'];
+		}
 		
 		if((strcmp($_GET['func'], "ReportPost")) == 0){
 			$pid = $_GET['pID'];

@@ -1,55 +1,59 @@
 <?php
-	$error = "";
-	$fname = "";
-	$mname = "";
-	$lname = "";
-	$uname = "";
-	$email = "";
-	$pass = "";
-	$cpass = "";
-	
-	if(isset($_POST["btnSubmit"])){
+SESSION_START();
+	if(!empty($_SESSION["adminName"]) && (!empty($_SESSION["adminEmail"]))){//Admin User
+		$error = "";
+		$fname = "";
+		$mname = "";
+		$lname = "";
+		$uname = "";
+		$email = "";
+		$pass = "";
+		$cpass = "";
 		
-		require_once("connection.php");
-		require_once("encryptDecrypt.php");
-		
-		$fname = $conn->real_escape_string($_POST['txtFName']);
-		$mname = $conn->real_escape_string($_POST['txtMName']);
-		$lname = $conn->real_escape_string($_POST['txtLName']);
-		$uname = $conn->real_escape_string($_POST['txtUName']);
-		
-		
-		$email = $conn->real_escape_string($_POST['txtEmail']);
-		$pass = $conn->real_escape_string($_POST['txtPWord']);
-		//$cpass = $conn->real_escape_string($_POST['txtCPWord']);
-		
-		
-		$sql = "SELECT * FROM tblAdmin WHERE adminEmail = '$email' OR adminName ='$uname'";
-		$result = $conn->query($sql);
-		if($result->num_rows > 0){ //Account Exist
+		if(isset($_POST["btnSubmit"])){
 			
-			while($row = $result->fetch_assoc()){
-				if($uname == $row['adminName']){
-					$error = "Username Already Taken. Try a different Username!!!";
-				}
-				if($email == $row['adminEmail']){
-					$error .= "Account Already Registered with this Email. <a href='adminLogin.php'>Click Here to Login</a>";
-				}
-			}
-		}else{//Register Account
-			try{
-				$pass = Encrypt($pass);
-				$sql = "INSERT INTO tblAdmin (adminEmail, adminFName, adminMName, adminLName, adminPWord) VALUES ('$email','$fname','$mname', '$lname', '$pass')";
-				$result = $conn->query($sql);
-				$error = "Admin Registration Successfull!!!";
-			}catch(Exception $e){
+			require_once("connection.php");
+			require_once("encryptDecrypt.php");
+			
+			$fname = $conn->real_escape_string($_POST['txtFName']);
+			$mname = $conn->real_escape_string($_POST['txtMName']);
+			$lname = $conn->real_escape_string($_POST['txtLName']);
+			$uname = $conn->real_escape_string($_POST['txtUName']);
+			
+			
+			$email = $conn->real_escape_string($_POST['txtEmail']);
+			$pass = $conn->real_escape_string($_POST['txtPWord']);
+			//$cpass = $conn->real_escape_string($_POST['txtCPWord']);
+			
+			
+			$sql = "SELECT * FROM tblAdmin WHERE adminEmail = '$email' OR adminName ='$uname'";
+			$result = $conn->query($sql);
+			if($result->num_rows > 0){ //Account Exist
 				
-				$error = "Registration Error. Try Again!!!";
+				while($row = $result->fetch_assoc()){
+					if($uname == $row['adminName']){
+						$error = "Username Already Taken. Try a different Username!!!";
+					}
+					if($email == $row['adminEmail']){
+						$error .= "Account Already Registered with this Email. <a href='adminLogin.php'>Click Here to Login</a>";
+					}
+				}
+			}else{//Register Account
+				try{
+					$pass = Encrypt($pass);
+					$sql = "INSERT INTO tblAdmin (adminEmail, adminFName, adminMName, adminLName, adminPWord) VALUES ('$email','$fname','$mname', '$lname', '$pass')";
+					$result = $conn->query($sql);
+					$error = "Admin Registration Successfull!!!";
+				}catch(Exception $e){
+					
+					$error = "Registration Error. Try Again!!!";
+				}
+				
 			}
-			
 		}
+	}else{
+		header("location:adminLogin.php");
 	}
-	
 ?>
 <!DOCTYPE html>
 <html>
