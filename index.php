@@ -1,5 +1,5 @@
-
 <?php
+
 	$searchResult = "";
 	require_once("createDatabase.php"); //Connect and attempt creating tables yet created.
 	if(isset($_POST['btnSearWord'])){

@@ -7,27 +7,23 @@ SESSION_START();
 		require_once("encryptDecrypt.php");
 		
 		$email = $conn->real_escape_string($_POST['txtEmail']);
-		$pass = $conn->real_escape_string($_POST['txtPassword']);
+		
 		
 		$sql = "SELECT * FROM tblUsersLogin WHERE userEmail = '$email'";
 		$result = $conn->query($sql);
 		if($result->num_rows > 0){
 			
-			while($row = $result->fetch_assoc()){
-				if($pass == Decrypt($row['userPWord'])){
-					if($row['userStatus'] == 1){
-						$_SESSION['userName'] = $row['userName'];
-						$_SESSION['userEmail'] = $row['userEmail'];
-						header("location:hyamForum.php");
-					}else{
-						//User not not verified
-						$error = "User Account Not Verified. <a href='https://hamsystems.herokuapp.com/getVerificationCode.php'>Retrieve Verification Details Here!!!</a>";
-					}
-				}
-			}
-		}else{
-			$error = "Email or Password Error. Try Again!!!";
+			$vcode = Encrypt($email);
+			$subject = "User Verification: Hyamda Learning Platform";
+			$body = "Dear <b>User</b>,<p>Your Email: $email was used for registration on the Hyamda Learning Platform. 
+					We require you to verify you account by clicking on the following link:</P><p><a href='https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode'>Click Here to Verify Account</a></p>
+					<p>Note you may also copy and paste the following link (URL) on your browser address bar, send (press enter key on your keyboard) to verify you account.<br 
+					https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode</p>
+					<p>Thank you and best regards,<br /><br />Hyamda Team";
+			include_once("sendEmail.php");
+			$error = "A verification Email has been sent your email account. Complete your verification from there.";
 		}
+		$error = "Account Retrieval. Try Again!!!";
 		
 	}
 	
@@ -56,18 +52,19 @@ SESSION_START();
         <div class="col-9">
             <div class="mainContainer formDive">
                 
-                <form action="login.php" method="POST" id="frmLogin">
+                <form action="getVerificationCode.php" method="POST" id="frmLogin">
                     <div class="row">
-                        <h1> User Login </h1>
+                        <h1> Retrieve User Verification Code </h1>
 						<h3 style="color:red;">
 						<?php
 							print($error);
 						?>
                         </h3>
 						<input type = "email" id="txtEmail" name="txtEmail" placeholder="Email Here" required>
-						<input type = "password" id="txtPassword" name="txtPassword" placeholder="Password Here" required>
+						
                         <input type="submit" value="Submit" name='btnSubmit' id='btnSubmit'>
 						<h4>Do not have an account yet? <a href="register.php">Register Here</a></h4>
+						<h4>Already have an account? <a href="login.php">Login Here</a></h4>
                     </div>
                     
                 </form>

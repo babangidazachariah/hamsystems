@@ -35,7 +35,7 @@
                                                         userName VARCHAR(50) NOT NULL,
                                                         userEmail VARCHAR(50) NOT NULL,
                                                         userPWord VARCHAR(50),
-                                                  
+														userStatus INTEGER,
                                                         PRIMARY KEY (userLoginID)
                                                         )
                                                         ENGINE=MyISAM";
