@@ -43,17 +43,17 @@
 				$result = $conn->query($sql);
 				$sql = "INSERT INTO tblUsersLogin (userName, userEmail, userPWord, userStatus) VALUES ('$uname','$email', '$pass', 0)";
 				$result = $conn->query($sql);
-				$error = "User Registration Successfull!!!";
+				
 				//Prepare Email to be sent for Verification
 				$vcode = Encrypt($email);
 				$subject = "User Verification: Hyamda Learning Platform";
-				$body = "Dear <b>$userFName</b>,<p>Your Email: $email was used for registration on the Hyamda Learning Platform. 
+				$body = "Dear <b>$fname</b>,<p>Your Email: $email was used for registration on the Hyamda Learning Platform. 
 						We require you to verify you account by clicking on the following link:</P><p><a href='https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode'>Click Here to Verify Account</a></p>
 						<p>Note you may also copy and paste the following link (URL) on your browser address bar, send (press enter key on your keyboard) to verify you account.<br 
 						https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode</p>
 						<p>Thank you and best regards,<br /><br />Hyamda Team";
 				include_once("sendEmail.php");
-				
+				$error = "Registration Successfull. Logon your Email to Verify your Account.";
 			}catch(Exception $e){
 				$sql = "DELETE FROM tblUsers WHERE userEmail = '$email'";
 				$result = $conn->query($sql);

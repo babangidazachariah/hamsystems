@@ -1,7 +1,7 @@
 <?php
 $sendStatus = false;
 require 'PHPMailerAutoload.php';
-print(DIRECTORY_SEPARATOR.'connection.php');
+
 $mail = new PHPMailer;
 
 //$mail->SMTPDebug = 4;                               // Enable verbose debug output
