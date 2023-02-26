@@ -18,7 +18,7 @@ SESSION_START();
 			$body = "Dear <b>User</b>,<p>Your Email: $email was used for registration on the Hyamda Learning Platform. 
 					We require you to verify you account by clicking on the following link:</P><p><a href='https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode'>Click Here to Verify Account</a></p>
 					<p>Note you may also copy and paste the following link (URL) on your browser address bar, send (press enter key on your keyboard) to verify you account.<br 
-					https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode</p>
+					<code>https://hamsystems.herokuapp.com/verify.php?typ=user&id=$email&vcode=$vcode</code></p>
 					<p>Thank you and best regards,<br /><br />Hyamda Team";
 			include_once("sendEmail.php");
 			$error = "A verification Email has been sent your email account. Complete your verification from there.";
