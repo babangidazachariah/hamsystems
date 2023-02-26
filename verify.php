@@ -12,14 +12,16 @@ if ($ype == "user"){
 			//update verification status
 			$sql = "UPDATE tblUsersLogin SET userStatus = 1 WHERE userEmail = '$email'";
 			$result = $conn->query($sql);
-			print("<h1>User Account Verification Successfull. <a href='https://hamsystems.herokuapp.com/'>Click Here to Continue</a></h1>"
+			print("<h1>User Account Verification Successfull. <a href='https://hamsystems.herokuapp.com/'>Click Here to Continue</a></h1>");
 		}else{
 			
-			print("<h1>User Account Verification Unsuccessfull. <a href='https://hamsystems.herokuapp.com/getVerificationCode.php'>Click Here to Receive Verification Code</a></h1>"
+			print("<h1>User Account Verification Unsuccessfull. <a href='https://hamsystems.herokuapp.com/getVerificationCode.php'>Click Here to Receive Verification Code</a></h1>");
 		}
 		
 	}else{
-		print("<h1>User Account Verification Unsuccessfull. <a href='https://hamsystems.herokuapp.com/getVerificationCode.php'>Click Here to Receive Verification Code</a></h1>"
+		print("<h1>User Account Verification Unsuccessfull. <a href='https://hamsystems.herokuapp.com/getVerificationCode.php'>Click Here to Receive Verification Code</a></h1>")
 	}
+}else{
+	print("<h1>Admin Account Verification Yet Implemented!!!.")
 }
 ?>
