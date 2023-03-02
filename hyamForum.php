@@ -101,7 +101,7 @@ SESSION_START();
 				<?php
 					$sql = "";
 					if(!(empty($_SESSION['userEmail']))){
-						$sql = "SELECT u.userFName, u.userLName, l.userName FROM tblUsers as u, tblUserLogin as l WHERE u.userEmail = '$email' AND l.userName = '$email' ";
+						$sql = "SELECT u.userFName, u.userLName, v.userName FROM tblUsers as u, tblUsersLogin as v WHERE u.userEmail = '$email' AND v.userName = '$user' ";
 						$result = $conn->query($sql);
 						if($result->num_rows > 0){
 							
